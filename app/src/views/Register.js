@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import './Register.scss';
+
 const Register = () => {
 
-  const [username, setUsername] = useState("Joe Black");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
 
-  const register = e => {
+  const sendCredentials = e => {
     e.preventDefault();
 
     const credentials = {
@@ -23,32 +25,30 @@ const Register = () => {
   }
 
   return (
-    <div className="login-container">
-      <form onSubmit={e => register(e)}>
-        <label htmlFor="login">
-          Log in
+    <div className="register-container">
+      <h2>Register</h2>
+      <form onSubmit={e => sendCredentials(e)}>
           <input
             id="username"
             value={username}
-            placeholder={username}
+            placeholder="Username"
             onChange={e => setUsername(e.target.value)}
           />
           <input
             id="password"
             type="password"
             value={password}
-            placeholder={password}
+            placeholder="Password"
             onChange={e => setPassword(e.target.value)}
           />
           <input
             id="passwordConf"
             type="password"
             value={passwordConf}
-            placeholder={passwordConf}
+            placeholder="Confirm password"
             onChange={e => setPasswordConf(e.target.value)}
           />
-        </label>
-        <button onClick={e => register(e)}>Submit</button>
+        <button onClick={e => sendCredentials(e)}>Submit</button>
       </form>
     </div>
   );
