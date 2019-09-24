@@ -3,7 +3,7 @@ import axios from "axios";
 
 import './Register.scss';
 
-const Register = () => {
+const Register = (props) => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +20,8 @@ const Register = () => {
 
     axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/registration/`, credentials)
     .then(res => {
-        localStorage.setItem("key", res.data.key)
+        localStorage.setItem("key", res.data.key);
+        props.history.push("/game")
       });
   }
 

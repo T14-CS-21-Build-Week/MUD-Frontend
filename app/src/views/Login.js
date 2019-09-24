@@ -3,7 +3,7 @@ import axios from "axios";
 
 import './Login.scss';
 
-const Login = () => {
+const Login = (props) => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,12 +13,13 @@ const Login = () => {
 
     const credentials = {
         "username": username,
-        "password1": password
+        "password": password
     }
 
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/registration/`, credentials)
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/login/`, credentials)
     .then(res => {
         localStorage.setItem("key", res.data.key)
+        props.history.push("/game")
       });
   }
 

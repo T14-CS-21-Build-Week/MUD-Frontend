@@ -21,8 +21,8 @@ class App extends React.Component {
           path="/"
           render={(routeProps) =>
             localStorage.getItem("key")
-              ? <Game />
-              : <Login />
+              ? <Game {...routeProps}/>
+              : <Login {...routeProps}/>
           }
         />
         <Route
@@ -30,8 +30,17 @@ class App extends React.Component {
           path="/register"
           render={(routeProps) =>
             localStorage.getItem("key")
-              ? <Game />
-              : <Register />
+              ? <Game {...routeProps}/>
+              : <Register {...routeProps}/>
+          }
+        />
+        <Route
+          exact
+          path="/game"
+          render={(routeProps) =>
+            localStorage.getItem("key")
+              ? <Game {...routeProps}/>
+              : <Login {...routeProps}/>
           }
         />
       </div>
