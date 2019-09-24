@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Login = () => {
+const Register = () => {
 
   const [username, setUsername] = useState("Joe Black");
   const [password, setPassword] = useState("");
@@ -10,12 +10,21 @@ const Login = () => {
   const register = e => {
     e.preventDefault();
 
+    const credentials = {
+        "username": username,
+        "password1": password,
+        "password2": passwordConf
+    }
 
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/registration/`, credentials)
+    .then(res => {
+        localStorage.setItem("key", res.data.key)
+      });
   }
 
   return (
     <div className="login-container">
-      <form>
+      <form onSubmit={e => register(e)}>
         <label htmlFor="login">
           Log in
           <input
@@ -39,10 +48,10 @@ const Login = () => {
             onChange={e => setPasswordConf(e.target.value)}
           />
         </label>
-        <button>Submit</button>
+        <button onClick={e => register(e)}>Submit</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
