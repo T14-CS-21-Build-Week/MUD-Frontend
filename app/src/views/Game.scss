@@ -1,0 +1,27 @@
+.page-container {
+    background-color: #0d202f;
+    height: 100vh;
+    .content-container {
+        border: 1px solid red;
+        display: flex;
+        height: 70vh;
+
+        padding-left: 5%;
+        padding-right: 5%;
+        .game-container {
+            background-color: black;
+            border: 1px solid blue;
+            width: 70%;
+        }
+        .information-container {
+            padding-left: 2%;
+            width: 30%;
+            border: 1px solid orange;
+        }
+    }
+
+    .bottom-container {
+        border: 1px solid yellow;
+        height: 50px;
+    }
+}

@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import Map from "../components/Map"
+import TitleBar from "../components/TitleBar"
+import Chat from '../components/Chat'
+import RoomInfo from '../components/RoomInfo'
+import Controls from '../components/Controls'
+
+import './Game.scss'
+
 
 class Game extends React.Component {
   constructor(props) {
@@ -28,8 +35,21 @@ class Game extends React.Component {
 
   render() {
     return (
-      <div className="game-container">
-        <Map />
+      <div className="page-container">
+      <TitleBar />
+      <div className="content-container">
+          <div className="game-container">
+            <Map />
+          </div>
+          <div className="information-container">
+            <RoomInfo />
+            <Controls />
+            <Chat />
+          </div>
+        </div>
+      <div className="bottom-container">
+          <BottomInfo />
+      </div>
       </div>
     );
   }
