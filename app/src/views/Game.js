@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import Map from "../components/Map"
+
 class Game extends React.Component {
   constructor(props) {
     super(props)
@@ -27,7 +29,7 @@ class Game extends React.Component {
   render() {
     return (
       <div className="game-container">
-  
+        <Map />
       </div>
     );
   }
