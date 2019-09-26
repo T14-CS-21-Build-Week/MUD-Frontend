@@ -5,23 +5,20 @@
     background-repeat: repeat;
 
     display: flex;
+    align-items: center;
     justify-content: space-between;
 
     .title-name {
         padding-left: 5%;
-        align-self: center;
         font-size: 30px;
         color: white;
     }
 
     .nav-links {
-        align-self: center;
         justify-content: space-between;
         padding-right: 5%;
 
         .about-link {
-            align-self: center;
-            justify-self: flex-end;
             margin-right: 30px;
             
             text-decoration: none;
@@ -36,9 +33,6 @@
         }
     
         .logout-link {
-            align-self: center;
-            justify-self: flex-end;
-            
             text-decoration: none;
             color: #9fc0c2;
             font-size: 20px;

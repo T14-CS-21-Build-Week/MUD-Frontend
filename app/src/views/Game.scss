@@ -14,7 +14,8 @@
         align-items: center;
         
         .game-container {
-            background-color: black;
+            border: 2px solid black;
+            background: darken(#163750, 10%);
             // border-radius: 5px;
             height: 90%;
             width: 55%;
