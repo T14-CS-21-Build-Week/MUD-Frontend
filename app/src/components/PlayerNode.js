@@ -32,7 +32,7 @@ const PlayerNode = ({ width, height, node,  minX, maxX, minY, maxY, bottom }) =>
           <circle
             cx={xScale(node.x)}
             cy={yScale(node.y)}
-            r="6"
+            r="8"
             fill="red"
           />
       </svg>

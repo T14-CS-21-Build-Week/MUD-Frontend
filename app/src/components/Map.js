@@ -27,7 +27,7 @@ const Map = ({ width, height, nodes, links, minX, maxX, minY, maxY }) => {
             y1={yScale(link.y1)}
             y2={yScale(link.y2)}
             strokeWidth={2}
-            stroke={"grey"}
+            stroke={"white"}
           />
         ))}
         {nodes.map((node, i) => (
@@ -35,8 +35,8 @@ const Map = ({ width, height, nodes, links, minX, maxX, minY, maxY }) => {
             key={i}
             cx={xScale(node.x)}
             cy={yScale(node.y)}
-            r="6"
-            fill={node.done === true ? "cyan" : "grey"}
+            r="7"
+            fill={node.done === true ? "white" : "white"}
           />
         ))}
       </svg>
