@@ -1,22 +1,25 @@
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
+
 import { scaleLinear } from "d3-scale";
-import axios from "axios";
 
-import "./Map.scss"
+var mapStyles = { position: "relative"}
+// var svgStyles = { position: "absolute", top: 100, left: 500, right: 0, bot", width: '100%'}tom: 0 };  
+var svgStyles = { position: "relative", width: '100%', top: '2.5%'}
 
-const Map = ({ width, height, nodes, links, minX, maxX, minY, maxY }) => {
+const PlayerNode = ({ width, height, nodes, links }) => {
   var xScale = scaleLinear()
-    .domain([minX, maxX])
-    .range([0, width]);
+    .domain([0, 10])
+    .range([10, width]);
   var yScale = scaleLinear()
-    .domain([minY, maxY])
-    .range([0, height]);
+    .domain([0, 15])
+    .range([50, height]);
 
   return (
-    <div className="map-container" id="map">
+    <div id="map" style={mapStyles}>
       <svg
-        className="map-svg"
+        style={svgStyles}
+        width={width}
+        height={height}
         viewBox={`0 0 ${width} ${height}`}
       >
         {links.map((link, i) => (
@@ -44,4 +47,4 @@ const Map = ({ width, height, nodes, links, minX, maxX, minY, maxY }) => {
   );
 }
 
-export default Map;
+export default PlayerNode;

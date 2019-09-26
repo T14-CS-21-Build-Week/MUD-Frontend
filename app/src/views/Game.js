@@ -18,6 +18,11 @@ class Game extends React.Component {
       nodes: [],
       links: [],
       current_room: {},
+      error: '',
+      maxX: 0,
+      maxY: 0,
+      minX: 0,
+      minY: 0
     }
   }
 
@@ -38,7 +43,7 @@ class Game extends React.Component {
       }})
       })
     .catch(err => {
-      console.log("err", err)
+      console.log(err)
     })
 
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/adv/rooms/`)
@@ -62,11 +67,31 @@ class Game extends React.Component {
     const nodes = []
     const links = []
     let link = {}
+    let maxX = 0
+    let maxY = 0
+    let minX = 1000000
+    let minY = 1000000
 
     for (let i = 0; i < rooms.length; i++) {
       let current_room = rooms[i]
       let current_room_coordinates = {x: current_room.x, y: current_room.y}
       nodes.push(current_room_coordinates)
+
+      if (current_room.x > maxX) {
+        maxX = current_room.x
+      }
+
+      if (current_room.y > maxY) {
+        maxY = current_room.y
+      }
+
+      if (current_room.x < minX) {
+        minX = current_room.x
+      }
+
+      if (current_room.y < minY) {
+        minY = current_room.y
+      }
 
       if (!(current_room.n_to === 0)) {
         link = {
@@ -112,8 +137,58 @@ class Game extends React.Component {
     this.setState({
       ...this.state,
       nodes: nodes,
-      links: links
+      links: links,
+      maxX: maxX,
+      maxY: maxY,
+      minX: minX,
+      minY: minY
     })
+  }
+
+  movement = direction => {
+    const key = localStorage.getItem("key")
+    const auth = `Token ${key}`
+
+    let data_to_send = {
+      direction : direction
+    }
+
+    let config = {
+      headers: {
+        Authorization: auth 
+      }
+    } 
+
+    axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/adv/move/`, data_to_send, config)
+    .then(res => {
+      console.log('Successful Movement')
+      console.log(res)
+
+      if (res.data.error_msg === '') {
+        console.log("Setting room info")
+        this.setState({
+          current_room: {
+            title: res.data.title,
+            description: res.data.description
+          },
+          error: ''
+        })
+      } else {
+        console.log('Setting error data.')
+        this.setState({
+          error: res.data.error_msg
+        })
+      }
+      
+      })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
+  generatePlayerNode = () => {
+
   }
 
   render() {
@@ -125,11 +200,20 @@ class Game extends React.Component {
       <TitleBar />
       <div className="content-container">
           <div className="game-container">
-          <Map width={700} height={700} nodes={this.state.nodes} links={this.state.links}/>
+          <Map 
+            width={700} 
+            height={700} 
+            nodes={this.state.nodes} 
+            links={this.state.links}
+            minX={this.state.minX}
+            maxX={this.state.maxX}
+            minY={this.state.minY}
+            maxY={this.state.maxY}
+          />
           </div>
           <div className="information-container">
             <RoomInfo current={this.state.current_room}/>
-            <Controls />
+            <Controls movementHandler={this.movement} error={this.state.error}/>
             <Chat />
           </div>
         </div>
