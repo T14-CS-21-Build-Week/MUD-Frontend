@@ -19,6 +19,10 @@ class Game extends React.Component {
       links: [],
       current_room: {},
       error: '',
+      maxX: 0,
+      maxY: 0,
+      minX: 0,
+      minY: 0
     }
   }
 
@@ -63,11 +67,31 @@ class Game extends React.Component {
     const nodes = []
     const links = []
     let link = {}
+    let maxX = 0
+    let maxY = 0
+    let minX = 1000000
+    let minY = 1000000
 
     for (let i = 0; i < rooms.length; i++) {
       let current_room = rooms[i]
       let current_room_coordinates = {x: current_room.x, y: current_room.y}
       nodes.push(current_room_coordinates)
+
+      if (current_room.x > maxX) {
+        maxX = current_room.x
+      }
+
+      if (current_room.y > maxY) {
+        maxY = current_room.y
+      }
+
+      if (current_room.x < minX) {
+        minX = current_room.x
+      }
+
+      if (current_room.y < minY) {
+        minY = current_room.y
+      }
 
       if (!(current_room.n_to === 0)) {
         link = {
@@ -113,7 +137,11 @@ class Game extends React.Component {
     this.setState({
       ...this.state,
       nodes: nodes,
-      links: links
+      links: links,
+      maxX: maxX,
+      maxY: maxY,
+      minX: minX,
+      minY: minY
     })
   }
 
@@ -172,7 +200,16 @@ class Game extends React.Component {
       <TitleBar />
       <div className="content-container">
           <div className="game-container">
-          <Map width={700} height={700} nodes={this.state.nodes} links={this.state.links}/>
+          <Map 
+            width={700} 
+            height={700} 
+            nodes={this.state.nodes} 
+            links={this.state.links}
+            minX={this.state.minX}
+            maxX={this.state.maxX}
+            minY={this.state.minY}
+            maxY={this.state.maxY}
+          />
           </div>
           <div className="information-container">
             <RoomInfo current={this.state.current_room}/>
