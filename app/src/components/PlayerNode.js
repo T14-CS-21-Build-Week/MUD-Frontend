@@ -2,46 +2,36 @@ import React, { useEffect } from "react";
 
 import { scaleLinear } from "d3-scale";
 
-var mapStyles = { position: "relative"}
-// var svgStyles = { position: "absolute", top: 100, left: 500, right: 0, bot", width: '100%'}tom: 0 };  
-var svgStyles = { position: "relative", width: '100%', top: '2.5%'}
+import "./Map.scss"
 
-const PlayerNode = ({ width, height, nodes, links }) => {
+// var mapStyles = { position: "relative", bottom: 700}
+// var svgStyles = { position: "relative"}
+
+const PlayerNode = ({ width, height, node,  minX, maxX, minY, maxY }) => {
+
   var xScale = scaleLinear()
-    .domain([0, 10])
-    .range([10, width]);
+    .domain([minX, maxX])
+    .range([0, width]);
   var yScale = scaleLinear()
-    .domain([0, 15])
-    .range([50, height]);
+    .domain([minY, maxY])
+    .range([0, height]);
 
   return (
-    <div id="map" style={mapStyles}>
+    <div className="playernode-container" id="playernode">
       <svg
-        style={svgStyles}
+        // style={svgStyles}
+        className="playernode-svg"
         width={width}
         height={height}
         viewBox={`0 0 ${width} ${height}`}
       >
-        {links.map((link, i) => (
-          <line
-            key={i}
-            x1={xScale(link.x1)}
-            x2={xScale(link.x2)}
-            y1={yScale(link.y1)}
-            y2={yScale(link.y2)}
-            strokeWidth={2}
-            stroke={"grey"}
-          />
-        ))}
-        {nodes.map((node, i) => (
           <circle
-            key={i}
             cx={xScale(node.x)}
             cy={yScale(node.y)}
             r="6"
-            fill={node.done === true ? "cyan" : "grey"}
+            color="red"
+            fill={node.done === true ? "red" : "red"}
           />
-        ))}
       </svg>
     </div>
   );

@@ -7,6 +7,7 @@ import Chat from '../components/Chat'
 import RoomInfo from '../components/RoomInfo'
 import Controls from '../components/Controls'
 import BottomPanel from '../components/BottomPanel'
+import PlayerNode from '../components/PlayerNode'
 
 import './Game.scss'
 
@@ -17,7 +18,13 @@ class Game extends React.Component {
       rooms: {},
       nodes: [],
       links: [],
-      current_room: {},
+      current_room: {
+        title: '',
+        description: '',
+        players: [],
+        x: 0,
+        y: 0
+      },
       error: '',
       maxX: 0,
       maxY: 0,
@@ -36,10 +43,12 @@ class Game extends React.Component {
         headers: { Authorization: auth },
       })
     .then(res => {
-      console.log(res)
       this.setState({current_room: {
         title: res.data.title,
-        description: res.data.description
+        description: res.data.description,
+        x: res.data.x,
+        y: res.data.y,
+        players: res.data.players
       }})
       })
     .catch(err => {
@@ -54,7 +63,7 @@ class Game extends React.Component {
       })
     })
     .then(res => {
-      console.log(this.state.rooms)
+      // console.log(this.state.rooms)
       this.generateNodes()
     })
     .catch(err => {
@@ -93,7 +102,7 @@ class Game extends React.Component {
         minY = current_room.y
       }
 
-      if (!(current_room.n_to === 0)) {
+      if (!(current_room.n_to === -1)) {
         link = {
           x1: current_room.x,
           y1: current_room.y,
@@ -103,7 +112,7 @@ class Game extends React.Component {
         links.push(link)
       }
 
-      if (!(current_room.e_to === 0)) {
+      if (!(current_room.e_to === -1)) {
         link = {
           x1: current_room.x,
           y1: current_room.y,
@@ -113,7 +122,7 @@ class Game extends React.Component {
         links.push(link)
       }
 
-      if (!(current_room.w_to === 0)) {
+      if (!(current_room.w_to === -1)) {
         link = {
           x1: current_room.x,
           y1: current_room.y,
@@ -123,7 +132,7 @@ class Game extends React.Component {
         links.push(link)
       }
 
-      if (!(current_room.s_to === 0)) {
+      if (!(current_room.s_to === -1)) {
         link = {
           x1: current_room.x,
           y1: current_room.y,
@@ -162,20 +171,23 @@ class Game extends React.Component {
     axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/api/adv/move/`, data_to_send, config)
     .then(res => {
-      console.log('Successful Movement')
-      console.log(res)
+      // console.log('Successful Movement')
+      // console.log(res)
 
       if (res.data.error_msg === '') {
         console.log("Setting room info")
         this.setState({
           current_room: {
             title: res.data.title,
-            description: res.data.description
+            description: res.data.description,
+            x: res.data.x,
+            y: res.data.y,
+            players: res.data.players
           },
           error: ''
         })
       } else {
-        console.log('Setting error data.')
+        // console.log('Setting error data.')
         this.setState({
           error: res.data.error_msg
         })
@@ -187,13 +199,9 @@ class Game extends React.Component {
     })
   }
 
-  generatePlayerNode = () => {
-
-  }
-
   render() {
-    console.log("nodes", this.state.nodes)
-    console.log("links", this.state.links)
+    // console.log("nodes", this.state.nodes)
+    // console.log("links", this.state.links)
     
     return (
       <div className="page-container">
@@ -210,6 +218,16 @@ class Game extends React.Component {
             minY={this.state.minY}
             maxY={this.state.maxY}
           />
+
+          <PlayerNode
+            width={700} 
+            height={700} 
+            node={this.state.current_room} 
+            minX={this.state.minX} 
+            maxX={this.state.maxX}
+            minY={this.state.minY}
+            maxY={this.state.maxY}
+           />
           </div>
           <div className="information-container">
             <RoomInfo current={this.state.current_room}/>

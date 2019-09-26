@@ -12,26 +12,22 @@ import {faCaretSquareLeft,
 import './InformationStyles.scss'
 
 const Controls = props => {
+
     const northClickHandler = input => {
-        console.log('North clicked')
-        props.movementHandler('n')
+        props.movementHandler('s')
     }
     
     const southClickHandler = input => {
-        console.log('South clicked')
-        props.movementHandler('s')
+        props.movementHandler('n')
     }
 
     const eastClickHandler = input => {
-        console.log("East clicked")
         props.movementHandler('e')
     }
 
     const westClickHandler = input => {
-        console.log('West clicked')
         props.movementHandler('w')
     }
-    console.log(props)
     return(
         <div className="controls-container">
             <h3 className="info-label"> Movement Controls </h3>
