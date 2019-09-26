@@ -1,0 +1,54 @@
+.title-bar-container {
+    height: 100px;
+    background-image: url("../assets/treeback.png");
+    background-size: contain;
+    background-repeat: repeat;
+
+    display: flex;
+    justify-content: space-between;
+    .title-name {
+        padding-left: 2.5%;
+        align-self: center;
+        font-size: 30px;
+        color: white;
+    }
+
+    .nav-links {
+        align-self: center;
+        justify-content: space-between;
+        padding-right: 2.5%;
+
+        .about-link {
+            align-self: center;
+            justify-self: flex-end;
+            margin-right: 30px;
+            
+            text-decoration: none;
+            color: #9fc0c2;
+            font-size: 20px;
+
+            &:hover {
+                color: #49757a;
+                border-bottom: .5px solid #49757a;
+                cursor: pointer;
+            }
+        }
+    
+        .logout-link {
+            align-self: center;
+            justify-self: flex-end;
+            
+            text-decoration: none;
+            color: #9fc0c2;
+            font-size: 20px;
+
+
+            &:hover {
+                color: #49757a;
+                border-bottom: .5px solid #49757a;
+                cursor: pointer;
+            }
+        }
+    }
+    
+}

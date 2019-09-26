@@ -1,0 +1,80 @@
+
+/**
+
+Room Information
+
+**/
+
+.room-info-container {
+    margin-top: 30px;
+    padding-top: 10px;
+    background-color: black;
+    width: 100%;
+    height: 200px;
+
+    .info-label {
+        padding-left: 10px;
+        text-align: left;
+        font-size: 14px;
+        color: lightgray;
+        opacity: 0.4;
+    }
+
+    .room-title {
+        padding-top: 20px;
+        padding-bottom: 5px;
+        font-size: 25px;
+        color: #aed1d3;
+        border-bottom: 1px solid #aed1d3;
+    }
+
+    .room-description {
+        padding: 10px;
+        text-align: left;
+        line-height: 1.3;
+        padding-top: 10px;
+        font-size: 18px;
+        color: #aed1d3;
+    }
+}
+
+/* 
+
+Movement Controls
+
+*/
+
+.controls-container {
+    background-color: black;
+    margin-top: 10px;
+    padding-top: 10px;
+    height: 150px;
+    .info-label {
+        padding-left: 10px;
+        text-align: left;
+        font-size: 14px;
+        color: lightgray;
+        opacity: 0.4;
+    }
+}
+
+/* 
+
+Chat
+
+*/
+
+.chat-container {
+    background-color: black;
+    margin-top: 10px;
+    padding-top: 10px;
+    min-height: 200px;
+
+    .info-label {
+        padding-left: 10px;
+        text-align: left;
+        font-size: 14px;
+        color: lightgray;
+        opacity: 0.4;
+    }
+}

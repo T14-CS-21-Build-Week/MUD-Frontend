@@ -1,0 +1,30 @@
+.page-container {
+    position: relative;
+    background-color: #0d202f;
+    min-height: 100vh;
+    .content-container {
+        background-color: #163750;
+        display: flex;
+        height: 70vh;
+
+        padding-left: 5%;
+        padding-right: 5%;
+        .game-container {
+            background-color: black;
+            border-radius: 5px;
+            
+            width: 60%;
+        }
+        .information-container {
+            padding-left: 2%;
+            width: 40%;
+            max-height: 600px;
+
+            flex-direction: column;
+            
+        }
+    }
+    .bottom-container {
+
+    }
+}
