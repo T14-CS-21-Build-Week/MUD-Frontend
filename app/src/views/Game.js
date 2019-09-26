@@ -16,7 +16,8 @@ class Game extends React.Component {
     this.state = {
       rooms: {},
       nodes: [],
-      links: []
+      links: [],
+      current_room: {},
     }
   }
 
@@ -31,6 +32,10 @@ class Game extends React.Component {
       })
     .then(res => {
       console.log(res)
+      this.setState({current_room: {
+        title: res.data.title,
+        description: res.data.description
+      }})
       })
     .catch(err => {
       console.log("err", err)
@@ -123,7 +128,7 @@ class Game extends React.Component {
           <Map width={600} height={600} nodes={this.state.nodes} links={this.state.links}/>
           </div>
           <div className="information-container">
-            <RoomInfo />
+            <RoomInfo current={this.state.current_room}/>
             <Controls />
             <Chat />
           </div>
