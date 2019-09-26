@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-
+import './InformationStyles.scss'
 
 const Controls = props => {
     return(
-        <>
-            <h1> Controls </h1>
-        </>
+        <div className="controls-container">
+            <h3 className="info-label"> Movement Controls </h3>
+        </div>
     )
 }
 
