@@ -7,6 +7,7 @@ import Chat from '../components/Chat'
 import RoomInfo from '../components/RoomInfo'
 import Controls from '../components/Controls'
 import BottomPanel from '../components/BottomPanel'
+import PlayerNode from '../components/PlayerNode'
 
 import './Game.scss'
 
@@ -38,7 +39,7 @@ class Game extends React.Component {
         headers: { Authorization: auth },
       })
     .then(res => {
-      console.log(res)
+      // console.log(res)
       this.setState({current_room: {
         title: res.data.title,
         description: res.data.description,
@@ -59,7 +60,7 @@ class Game extends React.Component {
       })
     })
     .then(res => {
-      console.log(this.state.rooms)
+      // console.log(this.state.rooms)
       this.generateNodes()
     })
     .catch(err => {
@@ -143,8 +144,8 @@ class Game extends React.Component {
     axios.post(
       `${process.env.REACT_APP_BACKEND_URL}/api/adv/move/`, data_to_send, config)
     .then(res => {
-      console.log('Successful Movement')
-      console.log(res)
+      // console.log('Successful Movement')
+      // console.log(res)
 
       if (res.data.error_msg === '') {
         console.log("Setting room info")
@@ -159,7 +160,7 @@ class Game extends React.Component {
           error: ''
         })
       } else {
-        console.log('Setting error data.')
+        // console.log('Setting error data.')
         this.setState({
           error: res.data.error_msg
         })
@@ -171,13 +172,9 @@ class Game extends React.Component {
     })
   }
 
-  generatePlayerNode = () => {
-
-  }
-
   render() {
-    console.log("nodes", this.state.nodes)
-    console.log("links", this.state.links)
+    // console.log("nodes", this.state.nodes)
+    // console.log("links", this.state.links)
     
     return (
       <div className="page-container">
@@ -185,6 +182,7 @@ class Game extends React.Component {
       <div className="content-container">
           <div className="game-container">
           <Map width={700} height={700} nodes={this.state.nodes} links={this.state.links}/>
+          <PlayerNode width={700} height={700} node={this.state.current_room} />
           </div>
           <div className="information-container">
             <RoomInfo current={this.state.current_room}/>
