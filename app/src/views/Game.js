@@ -144,6 +144,7 @@ class Game extends React.Component {
             title: res.data.title,
             description: res.data.description
           },
+          error: ''
         })
       } else {
         console.log('Setting error data.')
@@ -156,6 +157,10 @@ class Game extends React.Component {
     .catch(err => {
       console.log(err)
     })
+  }
+
+  generatePlayerNode = () => {
+
   }
 
   render() {
