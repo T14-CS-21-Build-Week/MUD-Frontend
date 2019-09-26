@@ -79,7 +79,7 @@ class Game extends React.Component {
       let current_room_coordinates = {x: current_room.x, y: current_room.y}
       nodes.push(current_room_coordinates)
 
-      if (!(current_room.n_to === 0)) {
+      if (!(current_room.n_to === -1)) {
         link = {
           x1: current_room.x,
           y1: current_room.y,
@@ -89,7 +89,7 @@ class Game extends React.Component {
         links.push(link)
       }
 
-      if (!(current_room.e_to === 0)) {
+      if (!(current_room.e_to === -1)) {
         link = {
           x1: current_room.x,
           y1: current_room.y,
@@ -99,7 +99,7 @@ class Game extends React.Component {
         links.push(link)
       }
 
-      if (!(current_room.w_to === 0)) {
+      if (!(current_room.w_to === -1)) {
         link = {
           x1: current_room.x,
           y1: current_room.y,
@@ -109,7 +109,7 @@ class Game extends React.Component {
         links.push(link)
       }
 
-      if (!(current_room.s_to === 0)) {
+      if (!(current_room.s_to === -1)) {
         link = {
           x1: current_room.x,
           y1: current_room.y,
