@@ -6,6 +6,7 @@ import { Route, Redirect } from "react-router-dom";
 import Register from "./views/Register"
 import Login from "./views/Login"
 import Game from "./views/Game"
+import BottomPanel from "./components/BottomPanel"
 
 class App extends React.Component {
   constructor() {

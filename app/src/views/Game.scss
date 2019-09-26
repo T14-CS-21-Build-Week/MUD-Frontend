@@ -1,6 +1,7 @@
 .page-container {
+    position: relative;
     background-color: #0d202f;
-    height: 100vh;
+    min-height: 100vh;
     .content-container {
         background-color: #163750;
         display: flex;

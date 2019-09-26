@@ -129,8 +129,10 @@ class Game extends React.Component {
           </div>
         </div>
       <div className="bottom-container">
-          <BottomPanel />
+          
       </div>
+
+        <BottomPanel />
       </div>
     );
   }
