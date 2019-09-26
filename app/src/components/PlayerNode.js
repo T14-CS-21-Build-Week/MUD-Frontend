@@ -7,8 +7,8 @@ import "./Map.scss"
 // var mapStyles = { position: "relative", bottom: 700}
 // var svgStyles = { position: "relative"}
 
-const PlayerNode = ({ width, height, node,  minX, maxX, minY, maxY }) => {
-
+const PlayerNode = ({ width, height, node,  minX, maxX, minY, maxY, bottom }) => {
+  console.log(node)
   var xScale = scaleLinear()
     .domain([minX, maxX])
     .range([0, width]);
@@ -17,7 +17,11 @@ const PlayerNode = ({ width, height, node,  minX, maxX, minY, maxY }) => {
     .range([0, height]);
 
   return (
-    <div className="playernode-container" id="playernode">
+    <div 
+      className="playernode-container" 
+      id="playernode"
+      style={{bottom: bottom}}
+    >
       <svg
         // style={svgStyles}
         className="playernode-svg"
@@ -29,8 +33,7 @@ const PlayerNode = ({ width, height, node,  minX, maxX, minY, maxY }) => {
             cx={xScale(node.x)}
             cy={yScale(node.y)}
             r="6"
-            color="red"
-            fill={node.done === true ? "red" : "red"}
+            fill="red"
           />
       </svg>
     </div>

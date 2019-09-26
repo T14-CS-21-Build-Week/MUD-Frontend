@@ -31,12 +31,13 @@ const Controls = props => {
     return(
         <div className="controls-container">
             <h3 className="info-label"> Movement Controls </h3>
+            <div className="controls">
+                <FontAwesomeIcon className="icon" icon={faCaretSquareLeft} onClick={westClickHandler} size="3x" color="white"/>
+                <FontAwesomeIcon className="icon" icon={faCaretSquareDown} onClick={southClickHandler} size="3x" color="white" />
+                <FontAwesomeIcon className="icon" icon={faCaretSquareRight} onClick={eastClickHandler} size="3x" color="white" />
+                <FontAwesomeIcon className="icon" icon={faCaretSquareUp} onClick={northClickHandler} size="3x" color="white" />    
+            </div>
             <h4 className="error-label">{props.error}</h4>
-            <FontAwesomeIcon icon={faCaretSquareLeft} onClick={westClickHandler} size="3x" color="white"/>
-            <FontAwesomeIcon icon={faCaretSquareDown} onClick={southClickHandler} size="3x" color="white" />
-            <FontAwesomeIcon icon={faCaretSquareRight} onClick={eastClickHandler} size="3x" color="white" />
-            <FontAwesomeIcon icon={faCaretSquareUp} onClick={northClickHandler} size="3x" color="white" />
-            
         </div>
     )
 }
