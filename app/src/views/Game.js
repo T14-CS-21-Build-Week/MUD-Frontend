@@ -125,7 +125,7 @@ class Game extends React.Component {
       <TitleBar />
       <div className="content-container">
           <div className="game-container">
-          <Map width={600} height={600} nodes={this.state.nodes} links={this.state.links}/>
+          <Map width={700} height={700} nodes={this.state.nodes} links={this.state.links}/>
           </div>
           <div className="information-container">
             <RoomInfo current={this.state.current_room}/>

@@ -3,24 +3,20 @@ import ReactDOM from "react-dom";
 import { scaleLinear } from "d3-scale";
 import axios from "axios";
 
-var mapStyles = { position: "relative"}
-// var svgStyles = { position: "absolute", top: 100, left: 500, right: 0, bot", width: '100%'}tom: 0 };  
-var svgStyles = { position: "relative", width: '100%', top: '2.5%'}
+import "./Map.scss"
 
 const Map = ({ width, height, nodes, links }) => {
   var xScale = scaleLinear()
-    .domain([0, 10])
-    .range([10, width]);
+    .domain([0, 14])
+    .range([0, width]);
   var yScale = scaleLinear()
-    .domain([0, 15])
-    .range([50, height]);
+    .domain([0, 14])
+    .range([0, height]);
 
   return (
-    <div id="map" style={mapStyles}>
+    <div className="map-container" id="map">
       <svg
-        style={svgStyles}
-        width={width}
-        height={height}
+        className="map-svg"
         viewBox={`0 0 ${width} ${height}`}
       >
         {links.map((link, i) => (
