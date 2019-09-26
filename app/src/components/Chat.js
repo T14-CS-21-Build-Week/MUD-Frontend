@@ -8,7 +8,7 @@ const Chat = props => {
 
 
     console.log(props)
-    let chats_to_use = props.chats
+    let chats_to_use = props.chats.slice(-6)
 
     const sendChat = e => {
         e.preventDefault()
@@ -45,7 +45,7 @@ const Chat = props => {
         <div className="chat-container">
             <h3 className="info-label">Chat</h3>
             <ul className="chat-message-list">
-                {props.chats.map(chat => {
+                {chats_to_use.map(chat => {
                     if (chat.type === true) {
                         return (
                             <li className="chat-message"> 
