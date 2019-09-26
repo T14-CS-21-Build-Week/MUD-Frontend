@@ -18,6 +18,7 @@ class Game extends React.Component {
       nodes: [],
       links: [],
       current_room: {},
+      error: '',
     }
   }
 
@@ -38,7 +39,7 @@ class Game extends React.Component {
       }})
       })
     .catch(err => {
-      console.log("err", err)
+      console.log(err)
     })
 
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/adv/rooms/`)
@@ -116,6 +117,47 @@ class Game extends React.Component {
     })
   }
 
+  movement = direction => {
+    const key = localStorage.getItem("key")
+    const auth = `Token ${key}`
+
+    let data_to_send = {
+      direction : direction
+    }
+
+    let config = {
+      headers: {
+        Authorization: auth 
+      }
+    } 
+
+    axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/adv/move/`, data_to_send, config)
+    .then(res => {
+      console.log('Successful Movement')
+      console.log(res)
+
+      if (res.data.error_msg === '') {
+        console.log("Setting room info")
+        this.setState({
+          current_room: {
+            title: res.data.title,
+            description: res.data.description
+          },
+        })
+      } else {
+        console.log('Setting error data.')
+        this.setState({
+          error: res.data.error_msg
+        })
+      }
+      
+      })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   render() {
     console.log("nodes", this.state.nodes)
     console.log("links", this.state.links)
@@ -129,7 +171,7 @@ class Game extends React.Component {
           </div>
           <div className="information-container">
             <RoomInfo current={this.state.current_room}/>
-            <Controls />
+            <Controls movementHandler={this.movement} error={this.state.error}/>
             <Chat />
           </div>
         </div>
