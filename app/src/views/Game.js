@@ -33,6 +33,7 @@ class Game extends React.Component {
       minY: 0,
       chats: [],
       playerUUID: null,
+      mapHeight: 0
     }
   }
 
@@ -173,7 +174,8 @@ class Game extends React.Component {
       maxX: maxX,
       maxY: maxY,
       minX: minX,
-      minY: minY
+      minY: minY,
+      mapHeight: this.refs.containerHeight.clientHeight
     })
   }
 
@@ -229,29 +231,29 @@ class Game extends React.Component {
   render() {
     return (
       <div className="page-container">
-      <TitleBar />
-      <div className="content-container">
-          <div className="game-container">
-          <Map 
-            width={700} 
-            height={700} 
-            nodes={this.state.nodes} 
-            links={this.state.links}
-            minX={this.state.minX}
-            maxX={this.state.maxX}
-            minY={this.state.minY}
-            maxY={this.state.maxY}
-          />
-
-          <PlayerNode
-            width={700} 
-            height={700} 
-            node={this.state.current_room} 
-            minX={this.state.minX} 
-            maxX={this.state.maxX}
-            minY={this.state.minY}
-            maxY={this.state.maxY}
-           />
+        <TitleBar />
+        <div className="content-container">
+          <div className="game-container" ref="containerHeight">
+              <Map 
+              width={700} 
+              height={700} 
+              nodes={this.state.nodes} 
+              links={this.state.links}
+              minX={this.state.minX}
+              maxX={this.state.maxX}
+              minY={this.state.minY}
+              maxY={this.state.maxY}
+            />
+              <PlayerNode
+              width={700} 
+              height={700} 
+              node={this.state.current_room} 
+              minX={this.state.minX} 
+              maxX={this.state.maxX}
+              minY={this.state.minY}
+              maxY={this.state.maxY}
+              bottom={this.state.mapHeight}
+            />
           </div>
           <div className="information-container">
             <RoomInfo current={this.state.current_room}/>
@@ -259,10 +261,6 @@ class Game extends React.Component {
             <Chat chats={this.state.chats}/>
           </div>
         </div>
-      <div className="bottom-container">
-          
-      </div>
-
         <BottomPanel />
       </div>
     );

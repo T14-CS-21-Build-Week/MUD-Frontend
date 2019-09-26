@@ -1,13 +1,14 @@
 .title-bar-container {
-    height: 100px;
+    height: 15%;
     background-image: url("../assets/treeback.png");
     background-size: contain;
     background-repeat: repeat;
 
     display: flex;
     justify-content: space-between;
+
     .title-name {
-        padding-left: 2.5%;
+        padding-left: 5%;
         align-self: center;
         font-size: 30px;
         color: white;
@@ -16,7 +17,7 @@
     .nav-links {
         align-self: center;
         justify-content: space-between;
-        padding-right: 2.5%;
+        padding-right: 5%;
 
         .about-link {
             align-self: center;
