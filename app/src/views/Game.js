@@ -66,10 +66,10 @@ class Game extends React.Component {
   
       const channel = pusher.subscribe(`p-channel-${res.data.uuid}`)
         channel.bind('broadcast', data => {
-          this.setState({ chats: [...this.state.chats, data.message]})
+          this.setState({ chats: [...this.state.chats, data]})
       })
         channel.bind('chatter', data => {
-          this.setState({ chats: [...this.state.chats, data.chatmessage]})
+          this.setState({ chats: [...this.state.chats, data]})
         })
 
     })
