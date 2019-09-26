@@ -7,7 +7,7 @@ class Game extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      rooms: {},
+      rooms: [],
       nodes: [],
       links: []
     }
@@ -16,6 +16,11 @@ class Game extends React.Component {
   componentDidMount() {
     const key = localStorage.getItem("key")
     const auth = `Token ${key}`
+    const rooms0 = [
+      {x: 1, y: 2, w_to: 0, e_to: 1, s_to: 0, n_to: 0},
+      {x: 2, y: 2, w_to: 0, s_to: 0, n_to: 0, e_to: 0},
+      {x: 2, y: 1, n_to: 1, w_to: 0, s_to: 0, e_to: 0}
+    ]
 
     axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/api/adv/init/`, 
@@ -29,7 +34,7 @@ class Game extends React.Component {
       console.log("err", err)
     })
 
-    axios.get("https://team14bw.herokuapp.com/api/adv/rooms/")
+    /*axios.get("https://team14bw.herokuapp.com/api/adv/rooms/")
     .then(res => {
       this.setState({
         ...this.state,
@@ -43,28 +48,44 @@ class Game extends React.Component {
     .catch(err => {
       console.log(err)
     })
-  }
+  */
 
-  generateNodes = () => {
-    const rooms = this.state.rooms;
+  this.generateNodes(rooms0)
+
+}
+
+  generateNodes = (rooms0) => {
+    let rooms = [...rooms0];
     const nodes = []
     const links = []
     let link = {}
-    const room_stack = []
+    let room_stack = []
+    let stack1 = []
     const already_added_rooms = {}
-
+    console.log("rooms", rooms)
+    console.log("first room", rooms[0])
     // Add first room to the stack
-    room_stack.push(rooms[0])
+    const firstroom = {...rooms[0]}
+    stack1.push(firstroom)
     // Mark it as already drawn
-    already_added_rooms[0] = true;
+    already_added_rooms["0"] = true;
 
-    while (room_stack.length > 0) {
-      let current_room = room_stack.pop();
+    console.log("STACK", stack1)
+
+    let count = 0
+
+    while (count <= 10) {
+      console.log("stack before pop", stack1)
+      let current_room = stack1.pop();
+      console.log("stack after pop", stack1)
       let current_room_coordinates = {x: current_room.x, y: current_room.y}
       nodes.push(current_room_coordinates)
+      console.log("current room", current_room)
+      console.log(already_added_rooms)
 
       if (current_room.e_to) {
-        if (!already_added_rooms[current_room.e_to])
+        if (!already_added_rooms[`${current_room.e_to}`])
+          console.log("Entered East")
           // Create the link between connected rooms
           link = {
             x1: current_room.x, 
@@ -78,12 +99,13 @@ class Game extends React.Component {
           room_stack.push(rooms[current_room.e_to])
 
           //Mark the connected room as already added to the stack
-          already_added_rooms[current_room.e_to] = true
+          already_added_rooms[`${current_room.e_to}`] = true
       } 
       
       if (current_room.w_to) {
-        if (!already_added_rooms[current_room.w_to])
+        if (!already_added_rooms[`${current_room.w_to}`])
           // Create the link between connected rooms
+          console.log("Entered West")
           link = {
             x1: current_room.x, 
             y1: current_room.y,
@@ -96,12 +118,13 @@ class Game extends React.Component {
           room_stack.push(rooms[current_room.w_to])
 
           //Mark the connected room as already added to the stack
-          already_added_rooms[current_room.w_to] = true
+          already_added_rooms[`${current_room.w_to}`] = true
       }
 
       if (current_room.n_to) {
-        if (!already_added_rooms[current_room.n_to])
+        if (!already_added_rooms[`${current_room.n_to}`])
           // Create the link between connected rooms
+          console.log("Entered North")
           link = {
             x1: current_room.x, 
             y1: current_room.y,
@@ -114,12 +137,14 @@ class Game extends React.Component {
           room_stack.push(rooms[current_room.n_to])
 
           //Mark the connected room as already added to the stack
-          already_added_rooms[current_room.n_to] = true
+          already_added_rooms[`${current_room.n_to}`] = true
       }
 
       if (current_room.s_to) {
-        if (!already_added_rooms[current_room.s_to])
+        if (!already_added_rooms[`${current_room.s_to}`])
           // Create the link between connected rooms
+          console.log("Entered South")
+
           link = {
             x1: current_room.x, 
             y1: current_room.y,
@@ -132,8 +157,10 @@ class Game extends React.Component {
           room_stack.push(rooms[current_room.s_to])
 
           //Mark the connected room as already added to the stack
-          already_added_rooms[current_room.s_to] = true
+          already_added_rooms[`${current_room.s_to}`] = true
       }
+
+      count += 1
     }
 
     this.setState({
@@ -149,7 +176,7 @@ class Game extends React.Component {
     
     return (
       <div className="game-container">
-        {/*<Map width={600} height={600} nodes={this.state.nodes} links={this.state.links}/>*/}
+        {<Map width={600} height={600} nodes={this.state.nodes} links={this.state.links}/>}
       </div>
     );
   }
