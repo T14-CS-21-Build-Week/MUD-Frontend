@@ -5,17 +5,18 @@
         border: 1px solid red;
         display: flex;
         height: 70vh;
+        width: 100%;
 
         padding-left: 5%;
         padding-right: 5%;
         .game-container {
             background-color: black;
             border: 1px solid blue;
-            width: 70%;
+            width: 100%;
         }
         .information-container {
             padding-left: 2%;
-            width: 30%;
+            // width: 30%;
             border: 1px solid orange;
         }
     }

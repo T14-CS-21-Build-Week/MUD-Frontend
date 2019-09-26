@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import Map from "../components/Map"
-import TitleBar from "../components/TitleBar"
-import Chat from '../components/Chat'
-import RoomInfo from '../components/RoomInfo'
-import Controls from '../components/Controls'
-
-import './Game.scss'
-
+import Map from "../components/Map2"
 
 class Game extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      rooms: {},
+      nodes: [],
+      links: []
+    }
   }
 
   componentDidMount() {
@@ -26,33 +23,179 @@ class Game extends React.Component {
         headers: { Authorization: auth },
       })
     .then(res => {
-        console.log(res)
+      console.log(res)
       })
     .catch(err => {
       console.log("err", err)
     })
+
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/adv/rooms/`)
+    .then(res => {
+      this.setState({
+        ...this.state,
+        rooms: res.data
+      })
+    })
+    .then(res => {
+      console.log(this.state.rooms)
+      this.generateNodes()
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
+  generateNodes = () => {
+    const rooms = this.state.rooms;
+    const nodes = []
+    const links = []
+    let link = {}
+    const room_stack = []
+    const already_added_rooms = {}
+    // Add first room to the stack
+    // room_stack.push(rooms[0])
+    // Mark it as already drawn
+    // already_added_rooms[0] = true;
+
+    for (let i = 0; i < rooms.length; i++) {
+      let current_room = rooms[i]
+      let current_room_coordinates = {x: current_room.x, y: current_room.y}
+      nodes.push(current_room_coordinates)
+      // console.log(current_room);
+
+      if (!(current_room.n_to === 0)) {
+        link = {
+          x1: current_room.x,
+          y1: current_room.y,
+          x2: current_room.x, 
+          y2: current_room.y + 1
+        }
+        links.push(link)
+      }
+
+      if (!(current_room.e_to === 0)) {
+        link = {
+          x1: current_room.x,
+          y1: current_room.y,
+          x2: current_room.x + 1, 
+          y2: current_room.y
+        }
+        links.push(link)
+      }
+
+      if (!(current_room.w_to === 0)) {
+        link = {
+          x1: current_room.x,
+          y1: current_room.y,
+          x2: current_room.x - 1, 
+          y2: current_room.y
+        }
+        links.push(link)
+      }
+
+      if (!(current_room.s_to === 0)) {
+        link = {
+          x1: current_room.x,
+          y1: current_room.y,
+          x2: current_room.x, 
+          y2: current_room.y - 1
+        }
+        links.push(link)
+      }
+    }
+    this.setState({
+      ...this.state,
+      nodes: nodes,
+      links: links
+    })
+  }
+
+
   render() {
+
+    console.log("nodes", this.state.nodes)
+    console.log("links", this.state.links)
+    
     return (
-      <div className="page-container">
-      <TitleBar />
-      <div className="content-container">
-          <div className="game-container">
-            <Map />
-          </div>
-          <div className="information-container">
-            <RoomInfo />
-            <Controls />
-            <Chat />
-          </div>
-        </div>
-      <div className="bottom-container">
-          <BottomInfo />
-      </div>
+      <div className="game-container">
+        <Map width={900} height={900} nodes={this.state.nodes} links={this.state.links}/>
       </div>
     );
   }
 };
 
 export default Game;
+
+
+  // while (room_stack.length > 0) {
+    //   let current_room = room_stack.pop();
+    //   let current_room_coordinates = {x: current_room.x, y: current_room.y}
+    //   nodes.push(current_room_coordinates)
+    //   if (current_room.e_to) {
+    //     if (!already_added_rooms[current_room.e_to])
+    //       // Create the link between connected rooms
+    //       link = {
+    //         x1: current_room.x, 
+    //         y1: current_room.y,
+    //         x2: rooms[current_room.e_to].x,
+    //         y2: rooms[current_room.e_to].y
+    //       }
+    //       links.push(link)
+          
+    //       // Add the connected room to the stack
+    //       room_stack.push(rooms[current_room.e_to])
+    //       //Mark the connected room as already added to the stack
+    //       already_added_rooms[current_room.e_to] = true
+    //   } 
+      
+    //   if (current_room.w_to) {
+    //     if (!already_added_rooms[current_room.w_to])
+    //       // Create the link between connected rooms
+    //       link = {
+    //         x1: current_room.x, 
+    //         y1: current_room.y,
+    //         x2: rooms[current_room.w_to].x,
+    //         y2: rooms[current_room.w_to].y
+    //       }
+    //       links.push(link)
+    //       // Add the connected room to the stack
+    //       room_stack.push(rooms[current_room.w_to])
+
+    //       //Mark the connected room as already added to the stack
+    //       already_added_rooms[current_room.w_to] = true
+    //   }
+
+    //   if (current_room.n_to) {
+    //     if (!already_added_rooms[current_room.n_to])
+    //       // Create the link between connected rooms
+    //       link = {
+    //         x1: current_room.x, 
+    //         y1: current_room.y,
+    //         x2: rooms[current_room.n_to].x,
+    //         y2: rooms[current_room.n_to].y
+    //       }
+    //       links.push(link)
+    //       // Add the connected room to the stack
+    //       room_stack.push(rooms[current_room.n_to])
+
+    //       //Mark the connected room as already added to the stack
+    //       already_added_rooms[current_room.n_to] = true
+    //   }
+
+    //   if (current_room.s_to) {
+    //     if (!already_added_rooms[current_room.s_to])
+    //       // Create the link between connected rooms
+    //       link = {
+    //         x1: current_room.x, 
+    //         y1: current_room.y,
+    //         x2: rooms[current_room.s_to].x,
+    //         y2: rooms[current_room.s_to].y
+    //       }
+    //       links.push(link)
+    //       // Add the connected room to the stack
+    //       room_stack.push(rooms[current_room.s_to])
+
+    //       //Mark the connected room as already added to the stack
+    //       already_added_rooms[current_room.s_to] = true
+    //   }
+    // }
