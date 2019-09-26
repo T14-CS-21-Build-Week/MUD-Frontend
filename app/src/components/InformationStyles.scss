@@ -85,4 +85,14 @@ Chat
         color: lightgray;
         opacity: 0.4;
     }
+
+    .chat-message-list {
+        overflow: hidden;
+        color: white;
+        height: 130px;
+
+        .chat-message {
+            color: white;
+        }
+    }
 }

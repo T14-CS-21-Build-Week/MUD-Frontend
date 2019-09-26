@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Pusher from "pusher-js"
 
 import Map from "../components/Map"
 import TitleBar from "../components/TitleBar"
@@ -29,7 +30,9 @@ class Game extends React.Component {
       maxX: 0,
       maxY: 0,
       minX: 0,
-      minY: 0
+      minY: 0,
+      chats: [],
+      playerUUID: null,
     }
   }
 
@@ -43,14 +46,34 @@ class Game extends React.Component {
         headers: { Authorization: auth },
       })
     .then(res => {
-      this.setState({current_room: {
+
+      this.setState({
+        current_room: {
         title: res.data.title,
         description: res.data.description,
         x: res.data.x,
         y: res.data.y,
         players: res.data.players
-      }})
+      },
+        playerUUID: res.data.uuid
       })
+
+      Pusher.logToConsole = true;
+      let pusher = new Pusher('e305935f79c646861ed1', {
+        cluster: 'us3',
+        forceTLS: true
+      })
+  
+      const channel = pusher.subscribe(`p-channel-${res.data.uuid}`)
+        channel.bind('broadcast', data => {
+          this.setState({ chats: [...this.state.chats, data.message]})
+      })
+        channel.bind('chatter', data => {
+          this.setState({ chats: [...this.state.chats, data.chatmessage]})
+        })
+
+    })
+
     .catch(err => {
       console.log(err)
     })
@@ -63,12 +86,12 @@ class Game extends React.Component {
       })
     })
     .then(res => {
-      // console.log(this.state.rooms)
       this.generateNodes()
     })
     .catch(err => {
       console.log(err)
     })
+
   }
 
   generateNodes = () => {
@@ -175,7 +198,7 @@ class Game extends React.Component {
       // console.log(res)
 
       if (res.data.error_msg === '') {
-        console.log("Setting room info")
+        console.log(this.state.chats)
         this.setState({
           current_room: {
             title: res.data.title,
@@ -199,10 +222,11 @@ class Game extends React.Component {
     })
   }
 
+  pusherSetup = () => {
+  }
+
+
   render() {
-    // console.log("nodes", this.state.nodes)
-    // console.log("links", this.state.links)
-    
     return (
       <div className="page-container">
       <TitleBar />
@@ -232,7 +256,7 @@ class Game extends React.Component {
           <div className="information-container">
             <RoomInfo current={this.state.current_room}/>
             <Controls movementHandler={this.movement} error={this.state.error}/>
-            <Chat />
+            <Chat chats={this.state.chats}/>
           </div>
         </div>
       <div className="bottom-container">
