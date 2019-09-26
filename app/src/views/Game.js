@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import Map from "../components/Map2"
+import Map from "../components/Map"
+import TitleBar from "../components/TitleBar"
+import Chat from '../components/Chat'
+import RoomInfo from '../components/RoomInfo'
+import Controls from '../components/Controls'
+import BottomPanel from '../components/BottomPanel'
+
+import './Game.scss'
 
 class Game extends React.Component {
   constructor(props) {
@@ -104,14 +111,26 @@ class Game extends React.Component {
     })
   }
 
-
   render() {
     console.log("nodes", this.state.nodes)
     console.log("links", this.state.links)
     
     return (
-      <div className="game-container">
-        <Map width={900} height={900} nodes={this.state.nodes} links={this.state.links}/>
+      <div className="page-container">
+      <TitleBar />
+      <div className="content-container">
+          <div className="game-container">
+          <Map width={600} height={600} nodes={this.state.nodes} links={this.state.links}/>
+          </div>
+          <div className="information-container">
+            <RoomInfo />
+            <Controls />
+            <Chat />
+          </div>
+        </div>
+      <div className="bottom-container">
+          <BottomPanel />
+      </div>
       </div>
     );
   }
