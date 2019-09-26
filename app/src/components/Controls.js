@@ -12,13 +12,13 @@ import {faCaretSquareLeft,
 import './InformationStyles.scss'
 
 const Controls = props => {
-    
+
     const northClickHandler = input => {
-        props.movementHandler('n')
+        props.movementHandler('s')
     }
     
     const southClickHandler = input => {
-        props.movementHandler('s')
+        props.movementHandler('n')
     }
 
     const eastClickHandler = input => {
