@@ -17,7 +17,13 @@ class Game extends React.Component {
       rooms: {},
       nodes: [],
       links: [],
-      current_room: {},
+      current_room: {
+        title: '',
+        description: '',
+        players: [],
+        x: 0,
+        y: 0
+      },
       error: '',
     }
   }
@@ -35,7 +41,10 @@ class Game extends React.Component {
       console.log(res)
       this.setState({current_room: {
         title: res.data.title,
-        description: res.data.description
+        description: res.data.description,
+        x: res.data.x,
+        y: res.data.y,
+        players: res.data.players
       }})
       })
     .catch(err => {
@@ -142,7 +151,10 @@ class Game extends React.Component {
         this.setState({
           current_room: {
             title: res.data.title,
-            description: res.data.description
+            description: res.data.description,
+            x: res.data.x,
+            y: res.data.y,
+            players: res.data.players
           },
           error: ''
         })
