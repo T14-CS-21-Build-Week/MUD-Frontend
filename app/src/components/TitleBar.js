@@ -13,10 +13,10 @@ const TitleBar = props => {
 
 return(
     <div className="title-bar-container">
-        <h1 className="title-name"> Title </h1>
+        <h1 className="title-name">WELCOME TO THE CONCRETE JUNGLE!</h1>
         <nav className="nav-links">
-            <Link to="/about" className="about-link"> About </Link>
-            <a className="logout-link" onClick={logout}> Logout </a>
+            <Link to="/about" className="about-link">About</Link>
+            <a className="logout-link" onClick={logout}>Logout</a>
         </nav>
     </div>
     )

@@ -6,11 +6,11 @@ Room Information
 **/
 
 .room-info-container {
-    margin-top: 30px;
+    grid-area: location;
+
     padding-top: 10px;
     background-color: black;
     width: 100%;
-    height: 200px;
 
     .info-label {
         padding-left: 10px;
@@ -30,7 +30,7 @@ Room Information
 
     .room-description {
         padding: 10px;
-        text-align: left;
+        text-align: center;
         line-height: 1.3;
         padding-top: 10px;
         font-size: 18px;
@@ -49,10 +49,14 @@ Movement Controls
 */
 
 .controls-container {
+    grid-area: movement;
+
     background-color: black;
     margin-top: 10px;
     padding-top: 10px;
-    height: 150px;
+    width: 100%;
+    padding-bottom: 5px;
+    
     .info-label {
         padding-left: 10px;
         text-align: left;
@@ -63,6 +67,19 @@ Movement Controls
 
     .error-label {
         color: red;
+        height: 15px;
+    }
+
+    .controls {
+        display: flex;
+        height: calc(100% - 40px);
+        align-items: center;
+        justify-content: center;
+
+        .icon {
+            cursor: pointer;
+            margin: 0 2.5px;
+        }
     }
 }
 
@@ -73,10 +90,12 @@ Chat
 */
 
 .chat-container {
+    grid-area: chat;
+
     background-color: black;
     margin-top: 10px;
     padding-top: 10px;
-    min-height: 200px;
+    width: 100%;
 
     .info-label {
         padding-left: 10px;

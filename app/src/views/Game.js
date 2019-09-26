@@ -207,8 +207,8 @@ class Game extends React.Component {
     
     return (
       <div className="page-container">
-      <TitleBar />
-      <div className="content-container">
+        <TitleBar />
+        <div className="content-container">
           <div className="game-container" ref="containerHeight">
               <Map 
               width={700} 
@@ -237,10 +237,6 @@ class Game extends React.Component {
             <Chat />
           </div>
         </div>
-      <div className="bottom-container">
-          
-      </div>
-
         <BottomPanel />
       </div>
     );
