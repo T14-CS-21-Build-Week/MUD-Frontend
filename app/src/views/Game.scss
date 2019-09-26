@@ -17,8 +17,12 @@
         .information-container {
             padding-left: 2%;
             width: 20%;
+
+            flex-direction: column;
+            
         }
     }
     .bottom-container {
+
     }
 }
