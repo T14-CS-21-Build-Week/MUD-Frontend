@@ -7,13 +7,13 @@ import "./Map.scss"
 // var mapStyles = { position: "relative", bottom: 700}
 // var svgStyles = { position: "relative"}
 
-const PlayerNode = ({ width, height, node}) => {
+const PlayerNode = ({ width, height, node,  minX, maxX, minY, maxY }) => {
 
   var xScale = scaleLinear()
-    .domain([0, 14])
+    .domain([minX, maxX])
     .range([0, width]);
   var yScale = scaleLinear()
-    .domain([0, 14])
+    .domain([minY, maxY])
     .range([0, height]);
 
   return (

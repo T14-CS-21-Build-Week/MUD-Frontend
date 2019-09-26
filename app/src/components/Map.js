@@ -5,12 +5,12 @@ import axios from "axios";
 
 import "./Map.scss"
 
-const Map = ({ width, height, nodes, links }) => {
+const Map = ({ width, height, nodes, links, minX, maxX, minY, maxY }) => {
   var xScale = scaleLinear()
-    .domain([0, 14])
+    .domain([minX, maxX])
     .range([0, width]);
   var yScale = scaleLinear()
-    .domain([0, 14])
+    .domain([minY, maxY])
     .range([0, height]);
 
   return (
