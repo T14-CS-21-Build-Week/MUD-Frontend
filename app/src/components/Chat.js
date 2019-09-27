@@ -49,7 +49,7 @@ const Chat = props => {
                     if (chat.type === true) {
                         return (
                             <li className="chat-message"> 
-                                <p className="chat-username">{chat.chatuser}:</p>
+                                <p className="chat-username">[{chat.chatuser}]:</p>
                                 <p className="chat-text">{chat.chatmessage}</p>
                             </li>
                         )
@@ -63,7 +63,12 @@ const Chat = props => {
                 })}
             </ul>
             <form className="chatbox-container"onSubmit={sendChat} >
-            <input className="chatbox" type="text" value={chatinput} onChange={e=> setChatInput(e.target.value)}/>
+            <input className="chatbox"
+             type="text" 
+             value={chatinput} 
+             onChange={e=> setChatInput(e.target.value)}
+             placeholder="Send a message..." 
+             />
             </form>
         </div>
     )
