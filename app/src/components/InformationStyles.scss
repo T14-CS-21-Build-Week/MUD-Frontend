@@ -22,17 +22,20 @@ Room Information
         width: calc(100% - 10px);
         padding-left: 10px;
         text-align: left;
-        font-size: 14px;
+        font-size: 13px;
         color: lightgray;
         opacity: 0.4;
     }
 
     .room-title {
+        display: flex;
+        justify-content: center;
         text-align: center;
-        padding-top: 20px;
+        padding-top: 18px;
         padding-bottom: 5px;
         font-size: 25px;
         color: #aed1d3;
+        width: 100%;
         border-bottom: 1px solid #aed1d3;
     }
 
@@ -41,8 +44,8 @@ Room Information
         text-align: center;
         line-height: 1.3;
         padding-top: 10px;
-        font-size: 18px;
-        color: #aed1d3;
+        font-size: 16px;
+        color: #aed1d3;      
     }
 
     .room-players {
@@ -64,24 +67,25 @@ Movement Controls
     margin-top: 10px;
     padding-top: 10px;
     width: 100%;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     
     .info-label {
         padding-left: 10px;
         text-align: left;
-        font-size: 14px;
+        font-size: 13px;
         color: lightgray;
         opacity: 0.4;
     }
 
     .error-label {
         color: red;
-        height: 15px;
+        font-size: 12px;
+        height: 10px;
     }
 
     .controls {
         display: flex;
-        height: calc(100% - 40px);
+        height: calc(100% - 20px);
         align-items: center;
         justify-content: center;
 
@@ -106,11 +110,17 @@ Chat
     margin-top: 10px;
     padding-top: 10px;
     width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: space-between;
 
     .info-label {
         padding-left: 10px;
         text-align: left;
-        font-size: 14px;
+        font-size: 13px;
         color: lightgray;
         opacity: 0.4;
     }
@@ -119,9 +129,9 @@ Chat
         padding-top: 5px;
         overflow: hidden;
         color: white;
-        height: 130px;
 
         .chat-message {
+            font-size: 13px;
             padding-left: 10px;
             display: flex;
             text-align: left;
@@ -143,10 +153,17 @@ Chat
 
     .chatbox-container {
         width: 100%;
-        align-self: flex-start;
+        padding-bottom: 5px;
+
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+
         .chatbox {
             width: 95%;
             padding: 5px;
+            border: none;
+            border: 2px solid white;
             background-color: black;
             color: white;
         }
